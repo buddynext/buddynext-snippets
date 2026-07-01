@@ -28,6 +28,9 @@ React to events with BuddyNext's action and filter hooks. See the developer guid
 | Snippet | What it does |
 | --- | --- |
 | [`react-to-new-post.php`](hooks/react-to-new-post.php) | Runs your code whenever a member publishes an activity post (`buddynext_post_created`). |
+| [`react-to-new-follow.php`](hooks/react-to-new-follow.php) | Runs your code whenever one member follows another (`buddynext_user_followed`). |
+| [`react-to-space-join.php`](hooks/react-to-space-join.php) | Runs your code whenever a member joins a space (`buddynext_space_member_joined`). |
+| [`react-to-post-deleted.php`](hooks/react-to-post-deleted.php) | Runs your code whenever an activity post is deleted (`buddynext_post_deleted`). |
 
 ## The two navigation systems (quick reference)
 
