@@ -56,6 +56,14 @@ Grant, revoke, or gate what members can do. See [`roles-caps/README.md`](roles-c
 | [`grant-capability.php`](roles-caps/grant-capability.php) | Grants a capability to specific members via the `buddynext_user_can` filter (verified: flips `buddynext_can()` for the allowlisted user). |
 | [`README.md`](roles-caps/README.md) | The permission model: `buddynext_can()`, roles, the 4 resolution layers, capability slugs, filter seams. |
 
+### cron-async/
+Defer slow work to the background. See [`cron-async/README.md`](cron-async/README.md) and the developer guide: **Cron and Async** (`developer-guide/37-cron-and-async.md`).
+
+| Snippet | What it does |
+| --- | --- |
+| [`defer-work.php`](cron-async/defer-work.php) | Runs slow work after the request via an Action Scheduler async action under the `buddynext` group (verified queued + ran). |
+| [`README.md`](cron-async/README.md) | The background-jobs rules: AS-first, the `buddynext` group, never force-disable WP-Cron. |
+
 ## The two navigation systems (quick reference)
 
 BuddyNext has two navigation systems - use the right seam for the surface you are extending:
