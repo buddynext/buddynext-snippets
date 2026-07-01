@@ -40,6 +40,14 @@ Change what a template renders. See [`templates/README.md`](templates/README.md)
 | [`wrap-a-template.php`](templates/wrap-a-template.php) | Injects markup around a template without copying it (`buddynext_after_template`). |
 | [`README.md`](templates/README.md) | How to copy a template into your theme (`{theme}/buddynext/…`) + the no-`extract()` variable gotcha. |
 
+### rest/
+Talk to the BuddyNext REST API (100% REST, no admin-ajax). See [`rest/README.md`](rest/README.md) and the developer guide: **REST Contract** (`developer-guide/14-rest-contract.md`).
+
+| Snippet | What it does |
+| --- | --- |
+| [`fetch-feed.js`](rest/fetch-feed.js) | Reads the home feed over REST with `X-WP-Nonce` + cursor pagination (verified `GET /feed/home` -> `{ items, next_cursor }`). |
+| [`README.md`](rest/README.md) | The REST contract: namespace, nonce auth, envelope, cursor pagination, `per_page` limits. |
+
 ## The two navigation systems (quick reference)
 
 BuddyNext has two navigation systems - use the right seam for the surface you are extending:
