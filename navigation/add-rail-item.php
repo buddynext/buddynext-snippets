@@ -4,6 +4,7 @@
  * Description: Adds a "Leaderboard" link to the persistent left-rail menu.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
+ * Tested up to: BuddyNext 1.0.4
  *
  * The left rail is the persistent vertical column in the hub shell. It is NOT
  * part of the Nav registry - add links with the `buddynext_rail_items` filter.

@@ -4,6 +4,7 @@
  * Description: Adds a "Notes" tab (with its own panel) to every member profile.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
+ * Tested up to: BuddyNext 1.0.4
  *
  * A profile tab is one entry on the Nav registry. Register it on the
  * `buddynext_register_nav` action: give it a lazy `url` (the clean tab URL) and

@@ -22,6 +22,13 @@ Add and change menus and tabs. See the developer guide: **Navigation API** (`dev
 | [`add-rail-item.php`](navigation/add-rail-item.php) | Adds a link to the persistent left-rail menu. |
 | [`relabel-remove-nav.php`](navigation/relabel-remove-nav.php) | Relabels and removes existing profile tabs. |
 
+### hooks/
+React to events with BuddyNext's action and filter hooks. See the developer guide: **Hooks** (`developer-guide/25-hooks-overview.md` and the per-area pages).
+
+| Snippet | What it does |
+| --- | --- |
+| [`react-to-new-post.php`](hooks/react-to-new-post.php) | Runs your code whenever a member publishes an activity post (`buddynext_post_created`). |
+
 ## The two navigation systems (quick reference)
 
 BuddyNext has two navigation systems - use the right seam for the surface you are extending:
@@ -29,6 +36,6 @@ BuddyNext has two navigation systems - use the right seam for the surface you ar
 - **Nav registry** (member-profile tabs, space tabs): register on the `buddynext_register_nav` action with `$registry->register([...])`. Each item declares its `label`, `icon`, a lazy `url`, and a `render` callable that draws its panel; `PanelRenderer` server-renders only the active tab's panel. Modify existing items with the `buddynext_nav_items` filter.
 - **Left rail** (the persistent global column): add plain-array links with the `buddynext_rail_items` filter.
 
-## Verified against
+## Tested up to
 
-BuddyNext 1.0.4. If a snippet stops working on a newer version, please open an issue.
+Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last live-verified against (currently 1.0.4). These snippets are re-checked each release - the developer docs and their examples are never left stale. If a snippet stops working on a newer version, please open an issue.
