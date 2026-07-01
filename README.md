@@ -48,6 +48,14 @@ Talk to the BuddyNext REST API (100% REST, no admin-ajax). See [`rest/README.md`
 | [`fetch-feed.js`](rest/fetch-feed.js) | Reads the home feed over REST with `X-WP-Nonce` + cursor pagination (verified `GET /feed/home` -> `{ items, next_cursor }`). |
 | [`README.md`](rest/README.md) | The REST contract: namespace, nonce auth, envelope, cursor pagination, `per_page` limits. |
 
+### roles-caps/
+Grant, revoke, or gate what members can do. See [`roles-caps/README.md`](roles-caps/README.md) and the developer guide: **Roles and Capabilities** (`developer-guide/39-roles-and-capabilities.md`).
+
+| Snippet | What it does |
+| --- | --- |
+| [`grant-capability.php`](roles-caps/grant-capability.php) | Grants a capability to specific members via the `buddynext_user_can` filter (verified: flips `buddynext_can()` for the allowlisted user). |
+| [`README.md`](roles-caps/README.md) | The permission model: `buddynext_can()`, roles, the 4 resolution layers, capability slugs, filter seams. |
+
 ## The two navigation systems (quick reference)
 
 BuddyNext has two navigation systems - use the right seam for the surface you are extending:
