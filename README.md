@@ -20,7 +20,7 @@ Add and change menus and tabs. See the developer guide: **Navigation API** (`dev
 | [`add-profile-tab.php`](navigation/add-profile-tab.php) | Adds a tab (with its own panel) to every member profile. |
 | [`add-space-tab.php`](navigation/add-space-tab.php) | Adds a tab (with its own panel) to every space. |
 | [`add-rail-item.php`](navigation/add-rail-item.php) | Adds a link to the persistent left-rail menu. |
-| [`relabel-remove-nav.php`](navigation/relabel-remove-nav.php) | Relabels and removes existing profile tabs. |
+| [`relabel-remove-nav.php`](navigation/relabel-remove-nav.php) | Reorders, relabels, and removes existing profile tabs. |
 
 ### hooks/
 React to events with BuddyNext's action and filter hooks. See the developer guide: **Hooks** (`developer-guide/25-hooks-overview.md` and the per-area pages).

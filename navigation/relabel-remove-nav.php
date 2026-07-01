@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: BuddyNext Snippet - Relabel or remove nav tabs
- * Description: Changes existing member-profile tabs - relabel About to Bio, remove Replies.
+ * Plugin Name: BuddyNext Snippet - Reorder, relabel, or remove nav tabs
+ * Description: Changes existing member-profile tabs - move About to the front, relabel it, remove Replies.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
  * Tested up to: BuddyNext 1.0.4
@@ -12,20 +12,19 @@
  * stays valid:
  *
  *   buddynext_nav_set( $items, $id, $changes )   relabel / re-gate / retarget
+ *   buddynext_nav_move( $items, $id, $anchor )   reorder: ['priority'=>int] (or before/after)
  *   buddynext_nav_remove( $items, $ids )         drop one id or an array of ids
- *   buddynext_nav_move( $items, $id, $anchor )   set before/after/priority
  *
- * VERIFIED in this snippet: relabel (a count-less tab) and remove. Two caveats
- * found by testing on a live site:
- *  - Relabeling a tab that carries a COUNT badge (e.g. Likes) does not visibly
- *    change its label - target a count-less tab such as About.
- *  - Primary-tab ORDER is driven by each provider's registration, so a
- *    `buddynext_nav_move()` from this filter is a best-effort nudge, not a hard
- *    reorder. If you need a specific position, register your own tab with the
- *    `priority` you want rather than trying to move a core tab past others.
+ * All three are VERIFIED working live. `priority` is the reliable reorder lever
+ * (lower = earlier). ONE precedence rule to know: if the SITE OWNER has already
+ * relabeled or reordered a tab in the admin Navigation screen, that saved
+ * setting wins for that tab (admin overrides apply at priority 20 - the intended
+ * precedence). Your change is honoured for every tab the owner has not
+ * customised. So if a nav_set/nav_move seems to do nothing, the owner has
+ * almost certainly pinned that tab in the admin.
  *
- * The admin Navigation overrides also hook this filter at priority 20, so a
- * site owner can still override your changes - register at the default priority.
+ * The admin overrides hook this same filter at priority 20, so register at the
+ * default priority (10) and the owner still wins.
  *
  * Docs: developer-guide/47-nav-api.md (Recipe: reorder, remove, or modify existing items)
  */
@@ -39,7 +38,10 @@ add_filter(
 			return $items;
 		}
 
-		// Relabel a count-less tab.
+		// Reorder: move the About tab to the front (priority 1, lower = earlier).
+		$items = buddynext_nav_move( $items, 'about', array( 'priority' => 1 ) );
+
+		// Relabel it.
 		$items = buddynext_nav_set( $items, 'about', array( 'label' => __( 'Bio', 'bnx-snippet' ) ) );
 
 		// Remove a tab.
