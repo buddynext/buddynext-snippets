@@ -31,6 +31,7 @@ React to events with BuddyNext's action and filter hooks. See the developer guid
 | [`react-to-new-follow.php`](hooks/react-to-new-follow.php) | Runs your code whenever one member follows another (`buddynext_user_followed`). |
 | [`react-to-space-join.php`](hooks/react-to-space-join.php) | Runs your code whenever a member joins a space (`buddynext_space_member_joined`). |
 | [`react-to-post-deleted.php`](hooks/react-to-post-deleted.php) | Runs your code whenever an activity post is deleted (`buddynext_post_deleted`). |
+| [`react-to-interests-change.php`](hooks/react-to-interests-change.php) | Runs your code whenever a member updates their picked interests (`buddynext_member_interests_updated`, BuddyNext 1.0.4+). |
 
 ### templates/
 Change what a template renders. See [`templates/README.md`](templates/README.md) and the developer guide: **Overriding templates** (`developer-guide/49-child-theme-template-overrides.md`).
@@ -55,6 +56,13 @@ Grant, revoke, or gate what members can do. See [`roles-caps/README.md`](roles-c
 | --- | --- |
 | [`grant-capability.php`](roles-caps/grant-capability.php) | Grants a capability to specific members via the `buddynext_user_can` filter (verified: flips `buddynext_can()` for the allowlisted user). |
 | [`README.md`](roles-caps/README.md) | The permission model: `buddynext_can()`, roles, the 4 resolution layers, capability slugs, filter seams. |
+
+### suggestions/
+Customize the people and space suggestion engines (BuddyNext 1.0.4+).
+
+| Snippet | What it does |
+| --- | --- |
+| [`customize-suggestions.php`](suggestions/customize-suggestions.php) | Pins, removes, or reranks entries via `buddynext_follow_suggestions` / `buddynext_space_suggestions`, and tunes the interest-match ceiling (verified live: pin applies once the member has any signal; space exclusion + ceiling verified). |
 
 ### cron-async/
 Defer slow work to the background. See [`cron-async/README.md`](cron-async/README.md) and the developer guide: **Cron and Async** (`developer-guide/37-cron-and-async.md`).
