@@ -4,7 +4,7 @@
  * Description: Adds a "Leaderboard" tab (with its own panel) to every space.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.0.8
  *
  * A space tab uses the same Nav registry as a profile tab, with
  * `surface => 'space'`. Build the clean tab URL against the live space in the
