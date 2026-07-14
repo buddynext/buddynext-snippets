@@ -33,6 +33,13 @@ React to events with BuddyNext's action and filter hooks. See the developer guid
 | [`react-to-post-deleted.php`](hooks/react-to-post-deleted.php) | Runs your code whenever an activity post is deleted (`buddynext_post_deleted`). |
 | [`react-to-interests-change.php`](hooks/react-to-interests-change.php) | Runs your code whenever a member updates their picked interests (`buddynext_member_interests_updated`, BuddyNext 1.0.4+). |
 
+### auth/
+Registration, login, and email verification.
+
+| Snippet | What it does |
+| --- | --- |
+| [`verify-existing-users.php`](auth/verify-existing-users.php) | One-time backfill that marks all existing members as email-verified, so pre-existing users are not locked out of posting after "Require email verification" is enabled (e.g. after a BuddyBoss migration). Idempotent, batched, fires no welcome emails/webhooks (verified live on a 1540-user 1.0.8 install). |
+
 ### templates/
 Change what a template renders. See [`templates/README.md`](templates/README.md) and the developer guide: **Overriding templates** (`developer-guide/49-child-theme-template-overrides.md`).
 
@@ -81,4 +88,4 @@ BuddyNext has two navigation systems - use the right seam for the surface you ar
 
 ## Tested up to
 
-Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last live-verified against (currently 1.0.4). These snippets are re-checked each release - the developer docs and their examples are never left stale. If a snippet stops working on a newer version, please open an issue.
+Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last live-verified against (1.0.4 for most; `auth/verify-existing-users.php` is verified to 1.0.8). These snippets are re-checked each release - the developer docs and their examples are never left stale. If a snippet stops working on a newer version, please open an issue.
