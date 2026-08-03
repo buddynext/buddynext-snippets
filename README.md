@@ -86,6 +86,29 @@ BuddyNext has two navigation systems - use the right seam for the surface you ar
 - **Nav registry** (member-profile tabs, space tabs): register on the `buddynext_register_nav` action with `$registry->register([...])`. Each item declares its `label`, `icon`, a lazy `url`, and a `render` callable that draws its panel; `PanelRenderer` server-renders only the active tab's panel. Modify existing items with the `buddynext_nav_items` filter.
 - **Left rail** (the persistent global column): add plain-array links with the `buddynext_rail_items` filter.
 
+## Integrations - put your plugin inside BuddyNext
+
+| Snippet | What it does |
+|---|---|
+| [`bridge-your-plugin.php`](integrations/bridge-your-plugin.php) | **Start here.** The complete integration in one file: publish your content as a feed card (site-wide or into a space), render it through the shared card renderer so it matches every other integration, add a profile tab and a space tab, declare an on/off switch the site owner controls under BuddyNext > Integrations, and remove the card cleanly when your content is deleted. |
+
+This is the same pattern BuddyNext's own bridges use - WPMediaVerse, Jetonomy, Gamification,
+Career Board, Learnomy, Listora, Eventonomy and WB Member Blog are all built this way.
+
+Three properties worth knowing before you copy it:
+
+- **It cannot break a site.** Everything is inside `buddynext_load_bridges` behind a guard on
+  your own plugin's constant. Deactivate BuddyNext and the file does nothing - verified by
+  deactivating it and firing the partner hook anyway.
+- **Publishing is idempotent.** `IntegrationActivity::publish()` matches on (type, url), so a
+  partner hook that fires twice produces one card, not two. You do not need your own guard.
+- **The site owner is in charge.** Every surface checks `buddynext_integration_enabled()`.
+  Turn the integration off and the cards stop, the profile tab goes, and the space tab goes.
+
+**Spaces are usually the better home.** `publish()` takes a `$space_id` - pass one and the card
+lands in that space's feed rather than the site-wide feed, in front of the people who asked for
+that subject.
+
 ## Tested up to
 
 Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last
