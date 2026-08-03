@@ -26,7 +26,15 @@ add_action(
 				'surface'  => 'profile',
 				'layer'    => 'primary',
 				'label'    => __( 'Notes', 'bnx-snippet' ),
-				'icon'     => 'file-text',
+				// No 'icon' key, deliberately. PROFILE tabs in BuddyNext are
+				// text-only: ProfileNav declares an icon for none of them, so the
+				// strip reads as one row of words. The renderer will happily draw
+				// one if you declare it, which makes yours the only tab that looks
+				// different.
+				//
+				// SPACE tabs are the opposite - SpaceNav does declare icons, so
+				// add-space-tab.php sets one on purpose. The two surfaces differ;
+				// copy the right one.
 				'priority' => 65,
 				'url'      => static function ( \BuddyNext\Nav\NavContext $c ): string {
 					return trailingslashit( \BuddyNext\Core\PageRouter::profile_url( $c->subject_id ) ) . 'notes/';
