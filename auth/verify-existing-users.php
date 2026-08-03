@@ -4,7 +4,7 @@
  * Description: One-time backfill that marks every EXISTING member as email-verified, so pre-existing users are not locked out of posting after "Require email verification" is switched on (e.g. after migrating from BuddyBoss/BuddyPress). New sign-ups still verify as normal.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.8
+ * Tested up to: BuddyNext 1.1.1
  *
  * THE PROBLEM
  * -----------

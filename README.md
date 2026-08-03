@@ -88,4 +88,17 @@ BuddyNext has two navigation systems - use the right seam for the surface you ar
 
 ## Tested up to
 
-Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last live-verified against (1.0.4 for most; `auth/verify-existing-users.php` is verified to 1.0.8). These snippets are re-checked each release - the developer docs and their examples are never left stale. If a snippet stops working on a newer version, please open an issue.
+Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last
+verified against. **All snippets in this repo are verified against BuddyNext 1.1.1.**
+
+That verification is a live run, not a read-through. Each snippet is installed on a clean
+install - fresh WordPress, Reign, BuddyNext free + Pro, WPMediaVerse and Jetonomy, with seeded
+demo data - the event it listens for is actually fired, and the effect is checked. Navigation
+snippets are verified by rendering the page and confirming the tab, the URL and the panel.
+
+One exception, stated plainly: `hooks/react-to-interests-change.php` had its hook contract
+checked against the source but was not fired end-to-end, because the demo seeder creates no
+profile fields and so a seeded site has no interests to change. Its header says so too.
+
+If a snippet stops working on a newer version, please open an issue - that is a bug in this
+repo, not in your code.

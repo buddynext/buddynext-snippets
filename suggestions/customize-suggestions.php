@@ -4,7 +4,7 @@
  * Description: Reranks, injects, or removes entries in the suggestion engines.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0.4+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * Both suggestion engines expose a final-word filter on their ranked ID lists
  * (both run AFTER the built-in ranking and outside its cache, so your changes

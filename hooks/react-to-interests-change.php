@@ -4,7 +4,14 @@
  * Description: Runs your code whenever a member changes their picked interests.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0.4+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
+ *
+ * Verification note (1.1.1): the hook contract was checked against the source -
+ * `buddynext_member_interests_updated` fires with ONE argument from
+ * ProfileService::save_profile(), which matches this callback. The callback was
+ * not fired end-to-end, because `wp buddynext demo seed` creates no profile
+ * fields, so a seeded site has no interests field to change. Every other snippet
+ * in this repo was executed live.
  *
  * Members pick interests (space categories) during onboarding and edit them on
  * their profile. Every write path funnels through one choke point, which fires:

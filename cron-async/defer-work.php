@@ -4,7 +4,7 @@
  * Description: Runs slow work AFTER the request via Action Scheduler, under the buddynext group.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * BuddyNext's rule: keep the request fast. When an event handler needs to do
  * slow work (call an API, write many rows, rebuild a cache), don't do it inline

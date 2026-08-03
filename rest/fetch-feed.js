@@ -1,6 +1,6 @@
 /**
  * BuddyNext Snippet - Read the home feed over REST
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * The BuddyNext frontend is 100% REST under wp-json/buddynext/v1/. Auth is the
  * standard logged-in WordPress pattern: cookie + the `wp_rest` nonce sent in the

@@ -4,7 +4,7 @@
  * Description: Gives chosen members a BuddyNext capability they would not have by role.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * Every permission decision flows through buddynext_can( $user_id, $capability,
  * $context ). Layer 4 of the resolution is the `buddynext_user_can` filter - the

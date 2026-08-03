@@ -4,7 +4,7 @@
  * Description: Runs your code whenever a member publishes an activity post.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * `buddynext_post_created` fires after a post is stored, from both the composer
  * and the scheduled-post publisher. Signature (verified in

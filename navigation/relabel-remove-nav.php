@@ -4,7 +4,7 @@
  * Description: Changes existing member-profile tabs - move About to the front, relabel it, remove Replies.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * To change tabs the core (or another addon) already registered, hook the
  * `buddynext_nav_items` filter. It runs per surface and hands you the raw

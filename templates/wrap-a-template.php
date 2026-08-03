@@ -4,7 +4,7 @@
  * Description: Adds markup after a specific BuddyNext template without overriding it.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * If you only need to add markup around a template - not rewrite its body - you
  * do NOT have to copy it into your theme. Every template render fires two

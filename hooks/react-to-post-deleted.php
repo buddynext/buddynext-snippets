@@ -4,7 +4,7 @@
  * Description: Runs your code whenever an activity post is deleted.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * `buddynext_post_deleted` fires after a post and its child rows are removed.
  * Signature (verified in includes/Feed/PostService.php):

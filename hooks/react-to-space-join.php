@@ -4,7 +4,7 @@
  * Description: Runs your code whenever a member joins a space.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * `buddynext_space_member_joined` fires after a member joins a space (a direct
  * join on an open space, or an approved request). Signature (verified in

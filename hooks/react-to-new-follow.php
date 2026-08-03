@@ -4,7 +4,7 @@
  * Description: Runs your code whenever one member follows another.
  * Version:     1.0.0
  * Requires:    BuddyNext 1.0+
- * Tested up to: BuddyNext 1.0.4
+ * Tested up to: BuddyNext 1.1.1
  *
  * `buddynext_user_followed` fires after a follow relationship is created.
  * Signature (verified in includes/SocialGraph/FollowService.php):
