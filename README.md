@@ -91,6 +91,7 @@ BuddyNext has two navigation systems - use the right seam for the surface you ar
 | Snippet | What it does |
 |---|---|
 | [`bridge-your-plugin.php`](integrations/bridge-your-plugin.php) | **Start here.** The complete integration in one file: publish your content as a feed card (site-wide or into a space), render it through the shared card renderer so it matches every other integration, add a profile tab and a space tab, declare an on/off switch the site owner controls under BuddyNext > Integrations, and remove the card cleanly when your content is deleted. |
+| [`custom-notification-type.php`](integrations/custom-notification-type.php) | Notify members from your plugin: register your own notification type so it gets a real row in Settings > Notifications, send it, collapse repeats with a group key, and render its text and link. |
 
 This is the same pattern BuddyNext's own bridges use - WPMediaVerse, Jetonomy, Gamification,
 Career Board, Learnomy, Listora, Eventonomy and WB Member Blog are all built this way.
@@ -104,6 +105,10 @@ Three properties worth knowing before you copy it:
   partner hook that fires twice produces one card, not two. You do not need your own guard.
 - **The site owner is in charge.** Every surface checks `buddynext_integration_enabled()`.
   Turn the integration off and the cards stop, the profile tab goes, and the space tab goes.
+
+**Partner notifications are collect-only.** BuddyNext shows your notification alongside its
+own so members have one place to look, but it never emails on your behalf - set
+`can_email => false` and send your own email from your own templates if you need one.
 
 **Spaces are usually the better home.** `publish()` takes a `$space_id` - pass one and the card
 lands in that space's feed rather than the site-wide feed, in front of the people who asked for
