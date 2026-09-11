@@ -33,6 +33,13 @@ React to events with BuddyNext's action and filter hooks. See the developer guid
 | [`react-to-post-deleted.php`](hooks/react-to-post-deleted.php) | Runs your code whenever an activity post is deleted (`buddynext_post_deleted`). |
 | [`react-to-interests-change.php`](hooks/react-to-interests-change.php) | Runs your code whenever a member updates their picked interests (`buddynext_member_interests_updated`, BuddyNext 1.0.4+). |
 
+### profile-fields/
+Add and shape member profile fields. See the developer guide: **Extending Cookbook** (`developer-guide/41-extending-cookbook.md`).
+
+| Snippet | What it does |
+| --- | --- |
+| [`register-custom-field-type.php`](profile-fields/register-custom-field-type.php) | Registers a brand-new profile field TYPE (not a field of an existing type) with its own input, display, sanitize, and search behaviour, via the `buddynext_field_types` engine registry plus the render/sanitize/display filters (verified live on 1.2.0: the type appears in the engine registry and the admin field-type dropdown, sanitizes its own value, and leaves other types untouched). This is the pattern BuddyNext Pro uses for its Location and Conditional types. |
+
 ### auth/
 Registration, login, and email verification.
 
@@ -62,6 +69,7 @@ Grant, revoke, or gate what members can do. See [`roles-caps/README.md`](roles-c
 | Snippet | What it does |
 | --- | --- |
 | [`grant-capability.php`](roles-caps/grant-capability.php) | Grants a capability to specific members via the `buddynext_user_can` filter (verified: flips `buddynext_can()` for the allowlisted user). |
+| [`gate-space-join.php`](roles-caps/gate-space-join.php) | Blocks a member from joining OR requesting any space while a `bnx_join_blocked` flag is on their account, via the `buddynext_can_join_space` seam - the same seam Pro uses for paid gating (verified live on 1.2.0: join and request both blocked while held, allowed once cleared). |
 | [`README.md`](roles-caps/README.md) | The permission model: `buddynext_can()`, roles, the 4 resolution layers, capability slugs, filter seams. |
 
 ### suggestions/
@@ -117,7 +125,9 @@ that subject.
 ## Tested up to
 
 Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last
-verified against. **All snippets in this repo are verified against BuddyNext 1.1.1.**
+verified against. **Most snippets in this repo are verified against BuddyNext 1.1.1; the
+`profile-fields/` and `roles-caps/gate-space-join.php` snippets are verified against 1.2.0.**
+Trust each snippet's own header for the exact version.
 
 That verification is a live run, not a read-through. Each snippet is installed on a clean
 install - fresh WordPress, Reign, BuddyNext free + Pro, WPMediaVerse and Jetonomy, with seeded
