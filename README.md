@@ -71,7 +71,15 @@ Grant, revoke, or gate what members can do. See [`roles-caps/README.md`](roles-c
 | --- | --- |
 | [`grant-capability.php`](roles-caps/grant-capability.php) | Grants a capability to specific members via the `buddynext_user_can` filter (verified: flips `buddynext_can()` for the allowlisted user). |
 | [`gate-space-join.php`](roles-caps/gate-space-join.php) | Blocks a member from joining OR requesting any space while a `bnx_join_blocked` flag is on their account, via the `buddynext_can_join_space` seam - the same seam Pro uses for paid gating (verified live on 1.2.0: join and request both blocked while held, allowed once cleared). |
+| [`ask-the-gate.php`](roles-caps/ask-the-gate.php) | Renders a "Join this space" control only when the join would actually be allowed, by asking `space_members->can_join()` first - so you never offer an action a listener (a paid-plan gate) will refuse (verified live on 1.2.0: the button renders for a real joiner). |
 | [`README.md`](roles-caps/README.md) | The permission model: `buddynext_can()`, roles, the 4 resolution layers, capability slugs, filter seams. |
+
+### services/
+Read BuddyNext's data from your own code through its service layer, never the tables directly. See the developer guide: **Extending Cookbook** (`developer-guide/41-extending-cookbook.md`).
+
+| Snippet | What it does |
+| --- | --- |
+| [`consume-a-service.php`](services/consume-a-service.php) | Reads posts correctly via `post_service`: `filter_visible()` to gate for the viewer FIRST, then `get_many()` to batch-hydrate in one query, in order (verified live on 1.2.0: a missing id is skipped, order is preserved, and the gate runs before the fetch). |
 
 ### suggestions/
 Customize the people and space suggestion engines (BuddyNext 1.0.4+).
@@ -127,10 +135,11 @@ that subject.
 ## Tested up to
 
 Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last
-verified against. **Most snippets in this repo are verified against BuddyNext 1.1.1; the `profile-fields/`
-snippet, `roles-caps/gate-space-join.php`, `hooks/block-content-at-submit.php` and
-`integrations/dispatch-webhook-event.php` are verified against 1.2.0.**
-Trust each snippet's own header for the exact version.
+verified against. **Some snippets in this repo are verified against BuddyNext 1.1.1; those added for 1.2.0 -
+`profile-fields/register-custom-field-type.php`, `roles-caps/gate-space-join.php`,
+`roles-caps/ask-the-gate.php`, `hooks/block-content-at-submit.php`,
+`integrations/dispatch-webhook-event.php` and `services/consume-a-service.php` - are
+verified against 1.2.0.** Trust each snippet's own header for the exact version.
 
 That verification is a live run, not a read-through. Each snippet is installed on a clean
 install - fresh WordPress, Reign, BuddyNext free + Pro, WPMediaVerse and Jetonomy, with seeded
