@@ -32,6 +32,7 @@ React to events with BuddyNext's action and filter hooks. See the developer guid
 | [`react-to-space-join.php`](hooks/react-to-space-join.php) | Runs your code whenever a member joins a space (`buddynext_space_member_joined`). |
 | [`react-to-post-deleted.php`](hooks/react-to-post-deleted.php) | Runs your code whenever an activity post is deleted (`buddynext_post_deleted`). |
 | [`react-to-interests-change.php`](hooks/react-to-interests-change.php) | Runs your code whenever a member updates their picked interests (`buddynext_member_interests_updated`, BuddyNext 1.0.4+). |
+| [`block-content-at-submit.php`](hooks/block-content-at-submit.php) | Rejects a post or comment at submit time (and on edit) when it matches a rule you define, via the `buddynext_safeguard_check` filter - the seam Pro's Moderation Rules engine uses (verified live on 1.2.0: banned phrase blocked with a WP_Error, normal content allowed, an upstream block preserved). |
 
 ### profile-fields/
 Add and shape member profile fields. See the developer guide: **Extending Cookbook** (`developer-guide/41-extending-cookbook.md`).
@@ -100,6 +101,7 @@ BuddyNext has two navigation systems - use the right seam for the surface you ar
 |---|---|
 | [`bridge-your-plugin.php`](integrations/bridge-your-plugin.php) | **Start here.** The complete integration in one file: publish your content as a feed card (site-wide or into a space), render it through the shared card renderer so it matches every other integration, add a profile tab and a space tab, declare an on/off switch the site owner controls under BuddyNext > Integrations, and remove the card cleanly when your content is deleted. |
 | [`custom-notification-type.php`](integrations/custom-notification-type.php) | Notify members from your plugin: register your own notification type so it gets a real row in Settings > Notifications, send it, collapse repeats with a group key, and render its text and link. |
+| [`dispatch-webhook-event.php`](integrations/dispatch-webhook-event.php) | Fire your plugin's own event to every external endpoint the owner registered - signed, queued, fanned out and retried like BuddyNext's own events - with one `buddynext_service('webhooks')->dispatch()` call (verified live on 1.2.0: dispatch runs through the service with the Webhooks feature on). |
 
 This is the same pattern BuddyNext's own bridges use - WPMediaVerse, Jetonomy, Gamification,
 Career Board, Learnomy, Listora, Eventonomy and WB Member Blog are all built this way.
@@ -125,8 +127,9 @@ that subject.
 ## Tested up to
 
 Every snippet header carries a `Tested up to:` line naming the BuddyNext version it was last
-verified against. **Most snippets in this repo are verified against BuddyNext 1.1.1; the
-`profile-fields/` and `roles-caps/gate-space-join.php` snippets are verified against 1.2.0.**
+verified against. **Most snippets in this repo are verified against BuddyNext 1.1.1; the `profile-fields/`
+snippet, `roles-caps/gate-space-join.php`, `hooks/block-content-at-submit.php` and
+`integrations/dispatch-webhook-event.php` are verified against 1.2.0.**
 Trust each snippet's own header for the exact version.
 
 That verification is a live run, not a read-through. Each snippet is installed on a clean
