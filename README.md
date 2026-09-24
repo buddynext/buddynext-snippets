@@ -22,6 +22,14 @@ Add and change menus and tabs. See the developer guide: **Navigation API** (`dev
 | [`add-rail-item.php`](navigation/add-rail-item.php) | Adds a link to the persistent left-rail menu. |
 | [`relabel-remove-nav.php`](navigation/relabel-remove-nav.php) | Reorders, relabels, and removes existing profile tabs. |
 
+### settings/
+Give your add-on settings inside BuddyNext's own screens. See the developer guide: **Admin pages and settings** (`developer-guide/40-admin-pages-and-settings.md`) and **Spaces schema** (`developer-guide/09-schema-spaces.md`).
+
+| Snippet | What it does |
+| --- | --- |
+| [`add-admin-settings-tab.php`](settings/add-admin-settings-tab.php) | Adds your own tab to the BuddyNext settings screen in wp-admin with `AdminHub::register_tab()`, saving one option through the Settings API (verified live on 1.2.1). |
+| [`add-space-settings-fields.php`](settings/add-space-settings-fields.php) | Adds per-space settings that space owners edit under Manage space -> Custom fields, with no form or save handler to write, then reads them with `buddynext_get_space_field()` (verified live on 1.2.1). |
+
 ### hooks/
 React to events with BuddyNext's action and filter hooks. See the developer guide: **Hooks** (`developer-guide/25-hooks-overview.md` and the per-area pages).
 
