@@ -21,6 +21,8 @@ Add and change menus and tabs. See the developer guide: **Navigation API** (`dev
 | [`add-space-tab.php`](navigation/add-space-tab.php) | Adds a tab (with its own panel) to every space. |
 | [`add-rail-item.php`](navigation/add-rail-item.php) | Adds a link to the persistent left-rail menu. |
 | [`relabel-remove-nav.php`](navigation/relabel-remove-nav.php) | Reorders, relabels, and removes existing profile tabs. |
+| [`tab-icons.php`](navigation/tab-icons.php) | Puts an icon on each profile and space tab, stacked above a smaller label, with an icon-only option (verified live on 1.2.1). |
+| [`land-members-on-explore.php`](navigation/land-members-on-explore.php) | Sends logged-in members who open /activity/ to the Explore feed instead of their Home feed (verified live on 1.2.1). |
 
 ### settings/
 Give your add-on settings inside BuddyNext's own screens. See the developer guide: **Admin pages and settings** (`developer-guide/40-admin-pages-and-settings.md`) and **Spaces schema** (`developer-guide/09-schema-spaces.md`).
