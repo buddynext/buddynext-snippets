@@ -57,6 +57,7 @@ Registration, login, and email verification.
 | Snippet | What it does |
 | --- | --- |
 | [`verify-existing-users.php`](auth/verify-existing-users.php) | One-time backfill that marks all existing members as email-verified, so pre-existing users are not locked out of posting after "Require email verification" is enabled (e.g. after a BuddyBoss migration). Idempotent, batched, fires no welcome emails/webhooks (verified live on a 1540-user 1.0.8 install). |
+| [`use-your-own-login-and-signup-pages.php`](auth/use-your-own-login-and-signup-pages.php) | Hands the Log in, Register and Lost password links back to WordPress or your login plugin, and points BuddyNext's Sign up links at your own page (`buddynext_owns_core_auth_links`, `buddynext_signup_url`, BuddyNext 1.2.5+). |
 
 ### templates/
 Change what a template renders. See [`templates/README.md`](templates/README.md) and the developer guide: **Overriding templates** (`developer-guide/49-child-theme-template-overrides.md`).
@@ -159,6 +160,10 @@ snippets are verified by rendering the page and confirming the tab, the URL and 
 One exception, stated plainly: `hooks/react-to-interests-change.php` had its hook contract
 checked against the source but was not fired end-to-end, because the demo seeder creates no
 profile fields and so a seeded site has no interests to change. Its header says so too.
+
+A second exception: `auth/use-your-own-login-and-signup-pages.php` was verified by loading it on
+a BuddyNext 1.2.5 site (BuddyX) and reading the addresses back with the snippet off and on. It was
+not walked in a browser on a clean install with a third-party login plugin. Its header says so too.
 
 If a snippet stops working on a newer version, please open an issue - that is a bug in this
 repo, not in your code.
