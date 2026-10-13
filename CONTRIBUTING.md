@@ -25,6 +25,7 @@ Ask these in order. Stop at the first "no".
 - **One file, one job, ready to paste.** A self-contained mu-plugin: the header, `defined( 'ABSPATH' ) || exit;`, then the code. No build step, no second file.
 - **The header explains it to someone who has never read the source:** when you would want this, how it works, what to change (mark those lines), and what it deliberately does not do.
 - **Never fight BuddyNext, and never make BuddyNext fight another plugin.** A snippet adds a choice for one site. BuddyNext's own screens and links keep working for every site that does not install it.
+- **A snippet that opens something up says exactly what it opens.** Many filters answer for a whole area, not one page (a hub covers its directory and every item under it). Grant the narrowest thing that does the job, test the case that must stay closed, and put a plain warning in the header for anyone tempted to widen it.
 - **State the BuddyNext version it needs** and the version it was last tested on.
 - Escape output, sanitise input, use the text domain `bnx-snippet`.
 
