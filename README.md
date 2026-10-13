@@ -2,6 +2,8 @@
 
 Copy-paste, ready-to-run code examples for extending [BuddyNext](https://github.com/buddynext/buddynext). Every snippet in this repo is a self-contained mu-plugin that has been dropped into a live `wp-content/mu-plugins/` and verified working - nothing here is illustrative-but-broken.
 
+Adding a snippet? Read [`CONTRIBUTING.md`](CONTRIBUTING.md) first: what belongs here, how to write it and how to check it.
+
 ## How to use a snippet
 
 1. Open the snippet file and read its header (what it does, which BuddyNext version it needs).
