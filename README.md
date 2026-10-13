@@ -74,7 +74,7 @@ Decide what a logged-out visitor can reach.
 
 | Snippet | What it does |
 | --- | --- |
-| [`open-a-page-to-guests.php`](private-community/open-a-page-to-guests.php) | Keeps the pages you choose (the spaces directory in the example) open to guests on a private community (`buddynext_private_community_public_hub`, BuddyNext 1.2.4+). |
+| [`open-a-page-to-guests.php`](private-community/open-a-page-to-guests.php) | Keeps the spaces directory listing, and only that, open to guests on a private community; single spaces stay behind the login (`buddynext_private_community_public_hub`, BuddyNext 1.2.4+). |
 
 ### templates/
 Change what a template renders. See [`templates/README.md`](templates/README.md) and the developer guide: **Overriding templates** (`developer-guide/49-child-theme-template-overrides.md`).
