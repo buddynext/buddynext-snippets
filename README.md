@@ -43,6 +43,7 @@ React to events with BuddyNext's action and filter hooks. See the developer guid
 | [`react-to-post-deleted.php`](hooks/react-to-post-deleted.php) | Runs your code whenever an activity post is deleted (`buddynext_post_deleted`). |
 | [`react-to-interests-change.php`](hooks/react-to-interests-change.php) | Runs your code whenever a member updates their picked interests (`buddynext_member_interests_updated`, BuddyNext 1.0.4+). |
 | [`block-content-at-submit.php`](hooks/block-content-at-submit.php) | Rejects a post or comment at submit time (and on edit) when it matches a rule you define, via the `buddynext_safeguard_check` filter - the seam Pro's Moderation Rules engine uses (verified live on 1.2.0: banned phrase blocked with a WP_Error, normal content allowed, an upstream block preserved). |
+| [`react-to-profile-saved.php`](hooks/react-to-profile-saved.php) | Runs your code whenever a member's profile values change, whichever screen saved them, for example to keep a CRM in step (`buddynext_profile_saved`, BuddyNext 1.2.1+). |
 
 ### profile-fields/
 Add and shape member profile fields. See the developer guide: **Extending Cookbook** (`developer-guide/41-extending-cookbook.md`).
@@ -58,6 +59,20 @@ Registration, login, and email verification.
 | --- | --- |
 | [`verify-existing-users.php`](auth/verify-existing-users.php) | One-time backfill that marks all existing members as email-verified, so pre-existing users are not locked out of posting after "Require email verification" is enabled (e.g. after a BuddyBoss migration). Idempotent, batched, fires no welcome emails/webhooks (verified live on a 1540-user 1.0.8 install). |
 | [`use-your-own-login-and-signup-pages.php`](auth/use-your-own-login-and-signup-pages.php) | Hands the Log in, Register and Lost password links back to WordPress or your login plugin, and points BuddyNext's Sign up links at your own page (`buddynext_owns_core_auth_links`, `buddynext_signup_url`, BuddyNext 1.2.5+). |
+
+### membership/
+Work alongside another membership plugin.
+
+| Snippet | What it does |
+| --- | --- |
+| [`unlock-members-only-posts-with-another-plugin.php`](membership/unlock-members-only-posts-with-another-plugin.php) | Opens members-only posts only for people your membership plugin says have paid (Paid Memberships Pro in the example) and sends the locked-post button to your pricing page (`buddynext_members_only_has_access`, `buddynext_members_only_cta`). |
+
+### private-community/
+Decide what a logged-out visitor can reach.
+
+| Snippet | What it does |
+| --- | --- |
+| [`open-a-page-to-guests.php`](private-community/open-a-page-to-guests.php) | Keeps the pages you choose (the spaces directory in the example) open to guests on a private community (`buddynext_private_community_public_hub`, BuddyNext 1.2.4+). |
 
 ### templates/
 Change what a template renders. See [`templates/README.md`](templates/README.md) and the developer guide: **Overriding templates** (`developer-guide/49-child-theme-template-overrides.md`).
@@ -121,6 +136,7 @@ BuddyNext has two navigation systems - use the right seam for the surface you ar
 | [`bridge-your-plugin.php`](integrations/bridge-your-plugin.php) | **Start here.** The complete integration in one file: publish your content as a feed card (site-wide or into a space), render it through the shared card renderer so it matches every other integration, add a profile tab and a space tab, declare an on/off switch the site owner controls under BuddyNext > Integrations, and remove the card cleanly when your content is deleted. |
 | [`custom-notification-type.php`](integrations/custom-notification-type.php) | Notify members from your plugin: register your own notification type so it gets a real row in Settings > Notifications, send it, collapse repeats with a group key, and render its text and link. |
 | [`dispatch-webhook-event.php`](integrations/dispatch-webhook-event.php) | Fire your plugin's own event to every external endpoint the owner registered - signed, queued, fanned out and retried like BuddyNext's own events - with one `buddynext_service('webhooks')->dispatch()` call (verified live on 1.2.0: dispatch runs through the service with the Webhooks feature on). |
+| [`limit-access-webhook-actions.php`](integrations/limit-access-webhook-actions.php) | Lets a Make, Zapier or n8n payment scenario do only the plan actions on the access webhook, and keeps the last order reference on the member (`buddynext_access_webhook_actions`, `buddynext_access_webhook_completed`, BuddyNext 1.2.5+). |
 
 This is the same pattern BuddyNext's own bridges use - WPMediaVerse, Jetonomy, Gamification,
 Career Board, Learnomy, Listora, Eventonomy and WB Member Blog are all built this way.
@@ -160,6 +176,11 @@ snippets are verified by rendering the page and confirming the tab, the URL and 
 One exception, stated plainly: `hooks/react-to-interests-change.php` had its hook contract
 checked against the source but was not fired end-to-end, because the demo seeder creates no
 profile fields and so a seeded site has no interests to change. Its header says so too.
+
+The snippets added in October 2026 for BuddyNext 1.2.5 (`membership/`, `private-community/`,
+`hooks/react-to-profile-saved.php`, `integrations/limit-access-webhook-actions.php`) were verified by
+loading each on a BuddyNext 1.2.5 site and firing its hooks, with the result checked: not on a
+clean install and not in a browser. Each header says exactly what was checked.
 
 A second exception: `auth/use-your-own-login-and-signup-pages.php` was verified by loading it on
 a BuddyNext 1.2.5 site (BuddyX) and reading the addresses back with the snippet off and on. It was
