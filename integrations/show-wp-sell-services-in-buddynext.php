@@ -11,8 +11,12 @@
  * You run BuddyNext and WP Sell Services on one site and want the marketplace to
  * show up in the community: members see new services in the feed, see reviews as
  * they are approved, and find a member's services on their profile. A built-in
- * bridge is planned; this covers the gap until then. It is built the same way as
- * integrations/bridge-your-plugin.php.
+ * WP Sell Services bridge is coming to BuddyNext; this covers the gap until then.
+ * It is built the same way as integrations/bridge-your-plugin.php.
+ *
+ * REMOVE THIS FILE when your BuddyNext version includes the built-in WP Sell
+ * Services bridge (it will be listed under BuddyNext > Integrations). Running
+ * both would post two cards for the same service.
  *
  * WHAT IT DOES
  *
