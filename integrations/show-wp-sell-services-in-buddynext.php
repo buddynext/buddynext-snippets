@@ -15,8 +15,8 @@
  * It is built the same way as integrations/bridge-your-plugin.php.
  *
  * REMOVE THIS FILE when your BuddyNext version includes the built-in WP Sell
- * Services bridge (it will be listed under BuddyNext > Integrations). Running
- * both would post two cards for the same service.
+ * Services bridge (BuddyNext's release notes will say so). Running both would
+ * post two cards for the same service.
  *
  * WHAT IT DOES
  *
