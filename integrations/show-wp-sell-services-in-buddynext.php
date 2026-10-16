@@ -18,9 +18,10 @@
  *
  *   1. A service goes live (published by the seller, approved from moderation,
  *      saved through REST or the wizard): a "listed a new service" card is posted
- *      to the site feed as the seller. Unpublished or trashed: the card is hidden
- *      and kept; published again: the same card comes back with its reactions and
- *      comments. Deleted for good: the card is removed.
+ *      to the site feed as the seller. Unpublished, trashed or given a password:
+ *      the service card AND its review cards are hidden and kept; public again:
+ *      the same cards come back with their reactions and comments. Deleted for
+ *      good: all of them are removed. A password-protected service never gets a card.
  *   2. A review becomes public (posted when moderation is off, or approved from
  *      the moderation queue): a "reviewed a service" card is posted as the
  *      reviewer, with the star rating. If a review is rejected, its card is removed.
@@ -38,6 +39,8 @@
  *   - No cards for services or reviews that existed before you installed this.
  *     It reacts to new events only.
  *   - No space feeds: cards go to the site feed (space id 0).
+ *   - WP Sell Services has no "review deleted" event, so a review deleted on its
+ *     own (not through rejection) keeps its card until its service is deleted.
  *
  * CHANGE THESE IF YOU LIKE
  *
@@ -61,6 +64,11 @@
  *   - approved with WP Sell Services' own ReviewService::moderate(): 1 card,
  *     posted as the reviewer, with the star rating
  *   - rejected: card removed
+ *   - service with an approved review set to draft, trashed, or given a password
+ *     while live: the service card and the review card are both hidden; made
+ *     public again: both come back with the same ids
+ *   - a new password-protected service, and a review approved on it: no cards
+ *   - service deleted for good: its service card and review card are removed
  *   - feed switch off under Integrations, service published: no card
  *   - 13 services published in a burst: 13 cards (the rate-limit exemption
  *     works), and the seller's own text post right after is still refused as
@@ -125,53 +133,58 @@ add_action(
 		add_action(
 			'transition_post_status',
 			static function ( string $new_status, string $old_status, \WP_Post $post ): void {
-				if ( 'wpss_service' !== $post->post_type || $new_status === $old_status ) {
+				if ( 'wpss_service' !== $post->post_type ) {
 					return;
 				}
-
 				$url = \BuddyNext\Feed\IntegrationActivity::published_permalink( $post );
 				if ( '' === $url ) {
 					return;
 				}
 
-				if ( 'publish' === $new_status ) {
-					if ( ! buddynext_integration_enabled( 'wpss', 'feed' ) ) {
-						return;
-					}
-					// Back from draft or trash: bring the same card back, with its
-					// date, reactions and comments. Only post a new card if there was none.
-					if ( \BuddyNext\Feed\IntegrationActivity::restore( $url, 'wpss_service' ) ) {
-						return;
-					}
-					bnx_wpss_publish_card(
-						(int) $post->post_author,
-						__( 'listed a new service', 'bnx-snippet' ),
-						$url,
-						get_the_title( $post ),
-						'wpss_service',
-						wp_trim_words( wp_strip_all_tags( (string) ( $post->post_excerpt ? $post->post_excerpt : $post->post_content ) ), 30 ),
-						(string) get_the_post_thumbnail_url( $post, 'large' )
-					);
+				// Not visible to everyone (draft, pending, private, trash, or a
+				// password on it): hide the service card AND its review cards, but
+				// keep them, so making it public again brings the same cards back.
+				// Checked on every save, so adding a password to a live service
+				// hides its cards straight away.
+				if ( ! bnx_wpss_is_public( $post ) ) {
+					\BuddyNext\Feed\IntegrationActivity::withdraw_by_meta( 'wpss_service', 'wpss_service_id', (int) $post->ID );
+					\BuddyNext\Feed\IntegrationActivity::withdraw_by_meta( 'wpss_review', 'wpss_service_id', (int) $post->ID );
 					return;
 				}
 
-				// No longer live (draft, pending, private, trash): hide the card but
-				// keep it, so republishing brings back the same card.
-				if ( 'publish' === $old_status ) {
-					\BuddyNext\Feed\IntegrationActivity::withdraw( $url, 'wpss_service' );
+				if ( ! buddynext_integration_enabled( 'wpss', 'feed' ) ) {
+					return;
 				}
+				// Back from hidden: bring the same cards back, with their dates,
+				// reactions and comments. Only post a new card if there was none.
+				\BuddyNext\Feed\IntegrationActivity::restore_by_meta( 'wpss_review', 'wpss_service_id', (int) $post->ID );
+				if ( \BuddyNext\Feed\IntegrationActivity::restore( $url, 'wpss_service' ) ) {
+					return;
+				}
+				// publish() is idempotent on (type, url): saving a live service again
+				// does not post a second card.
+				bnx_wpss_publish_card(
+					(int) $post->post_author,
+					__( 'listed a new service', 'bnx-snippet' ),
+					$url,
+					get_the_title( $post ),
+					'wpss_service',
+					wp_trim_words( wp_strip_all_tags( (string) ( $post->post_excerpt ? $post->post_excerpt : $post->post_content ) ), 30 ),
+					(string) get_the_post_thumbnail_url( $post, 'large' ),
+					(int) $post->ID
+				);
 			},
 			10,
 			3
 		);
 
-		// Deleted for good: remove the card.
+		// Deleted for good: remove the service card and every review card for it.
 		add_action(
 			'before_delete_post',
 			static function ( int $post_id ): void {
-				$post = get_post( $post_id );
-				if ( $post && 'wpss_service' === $post->post_type ) {
-					\BuddyNext\Feed\IntegrationActivity::remove( \BuddyNext\Feed\IntegrationActivity::published_permalink( $post ), 'wpss_service' );
+				if ( 'wpss_service' === get_post_type( $post_id ) ) {
+					\BuddyNext\Feed\IntegrationActivity::remove_by_meta( 'wpss_service', 'wpss_service_id', $post_id );
+					\BuddyNext\Feed\IntegrationActivity::remove_by_meta( 'wpss_review', 'wpss_service_id', $post_id );
 				}
 			}
 		);
@@ -285,13 +298,27 @@ function bnx_wpss_count_services( int $user_id ): int {
  * @param string $type      Card type.
  * @param string $excerpt   Line under the title.
  * @param string $image     Cover image URL, or ''.
+ * @param int    $service_id The service the card belongs to (stored on the card,
+ *                           so all of a service's cards can be hidden together).
  * @return void
  */
-function bnx_wpss_publish_card( int $member_id, string $verb, string $url, string $title, string $type, string $excerpt, string $image ): void {
+function bnx_wpss_publish_card( int $member_id, string $verb, string $url, string $title, string $type, string $excerpt, string $image, int $service_id ): void {
 	$exempt = static fn(): bool => true;
 	add_filter( 'buddynext_rate_limit_exempt', $exempt, 99 );
 	try {
-		\BuddyNext\Feed\IntegrationActivity::publish( $member_id, $verb, $url, $title, $type, $excerpt, 0, array( 'image' => $image ) );
+		\BuddyNext\Feed\IntegrationActivity::publish(
+			$member_id,
+			$verb,
+			$url,
+			$title,
+			$type,
+			$excerpt,
+			0,
+			array(
+				'image'           => $image,
+				'wpss_service_id' => $service_id,
+			)
+		);
 	} finally {
 		remove_filter( 'buddynext_rate_limit_exempt', $exempt, 99 );
 	}
@@ -335,7 +362,9 @@ function bnx_wpss_post_review_card( int $review_id ): void {
 	if ( ! $review || 'approved' !== $review->status ) {
 		return;
 	}
-	if ( 'publish' !== get_post_status( (int) $review->service_id ) ) {
+	// Never point a public card at a service that is not public itself.
+	$service = get_post( (int) $review->service_id );
+	if ( ! $service || ! bnx_wpss_is_public( $service ) ) {
 		return;
 	}
 
@@ -347,8 +376,22 @@ function bnx_wpss_post_review_card( int $review_id ): void {
 		get_the_title( (int) $review->service_id ),
 		'wpss_review',
 		wp_trim_words( wp_strip_all_tags( (string) $review->content ), 30 ),
-		(string) get_the_post_thumbnail_url( (int) $review->service_id, 'large' )
+		(string) get_the_post_thumbnail_url( (int) $review->service_id, 'large' ),
+		(int) $review->service_id
 	);
+}
+
+/**
+ * Whether a service is open to everyone: published and not password-protected.
+ *
+ * A card in the feed is public, so it must never carry the title or text of a
+ * service that only some people may see.
+ *
+ * @param \WP_Post $post Service.
+ * @return bool
+ */
+function bnx_wpss_is_public( \WP_Post $post ): bool {
+	return 'publish' === $post->post_status && '' === (string) $post->post_password;
 }
 
 /**
